@@ -10,6 +10,11 @@ public class EmitListFormat {
 	public List<string> args;
 }
 
+public class EmitListListFormat {
+	putlic string name;
+	public List<List<string>> args;
+}
+
 public class EmitDictionaryFormat {
 	public string name;
 	public List<Dictionary<string,string > > args;
@@ -24,6 +29,18 @@ public class socketManager : MonoBehaviour {
 		Debug.Log("attempt to connect:" + ipaddress + ":" + port);
 		socket = new SocketIOClient.Client("http://" + ipaddress + ":" + port);
 		//Opening.sendDebugLog ("attempt to connect:" + ipaddress + ":" + port);
+
+		socket.On ("joinRoom", (data) => {
+			Debug.Log("receive joinRoom:" + data.MessageText);
+			EmitListListFormat format = JsonMapper.ToObject<EmitListListFormat>(data.MessageText);
+			List<string> userList = format.args[0];
+			string userListStrings = "";
+			for(int i=0;i<userList.Count;i++) {
+				userListStrings += userList[i] + ",";
+			}
+			Debug.Log("UserList:" + userListStrings);
+		});
+
 		/*
 		socket.On("connect-result",(data) => {
 			Debug.Log("json:" + data.MessageText);
@@ -67,6 +84,12 @@ public class socketManager : MonoBehaviour {
 		emit("joinRoom",val);
 	}
 
+	public static void emitRuleEvent(ruleSettingManager.RuleData ruleData) {
+		string val = LitJson.JsonMapper.ToJson (ruleData).ToString ();
+		Debug.Log ("emit chageRule:" + val);
+		emit("chageRule",val);
+	}
+
 	public static void emit(string eventName,string message) {
 		socket.Emit (eventName, message);
 	}
@@ -104,8 +127,7 @@ public class socketManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("emitjoin");
-		emitJoinRoomEvent(new Dictionary<string,string>{{"name","12"},{"clientId","1234567890abcdef"}});
+
 	}
 	
 	// Update is called once per frame
