@@ -8,6 +8,10 @@ public enum roleName{
 	seer,
 	medium,
 	bodyguard,
+	minion,
+	freemason,
+	fox,
+	cat,
 	max
 }
 
