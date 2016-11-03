@@ -20,8 +20,16 @@ public class ruleSettingManager : MonoBehaviour {
 		RuleData ruleData = new RuleData();
 		// 配役設定
 		ruleData.roleNum = new List<int>();
-		ruleData.roleNum.Add(2);
-		ruleData.roleNum.Add(1);
+
+		for(int i = 0; i < nodeList.Count; i++){
+			GameObject obj = nodeList[i].transform.FindChild("roleNum").gameObject;
+			string str = obj.GetComponent<Text>().text;
+			int num = int.Parse(str);
+			ruleData.roleNum.Add(num);
+			Debug.Log(num);
+		}
+		// ruleData.roleNum.Add(2);
+		// ruleData.roleNum.Add(1);
 
 		string afternoonTimeText = afternoonTimeDropdown.captionText.text;
 		string nightTimeText = nightTimeDropdown.captionText.text;
@@ -32,10 +40,14 @@ public class ruleSettingManager : MonoBehaviour {
 
 		socketManager.emitRuleEvent(ruleData);
 	}
+
+	// ruleNode instantiate
 	public GameObject roleNode;
 	public GameObject Content;
 	public GameObject obj;
 	public Text roleNameText;
+
+	public List<GameObject> nodeList;
 	public void generateRoleNode(){
 		for(int i = 0;i < (int)roleName.max;i++){
 
@@ -45,6 +57,8 @@ public class ruleSettingManager : MonoBehaviour {
 			obj = Instantiate(roleNode) as GameObject;
 			obj.transform.SetParent(Content.transform);
 			obj.transform.localScale = new Vector3(1, 1, 1);
+
+			nodeList.Add(obj);
 		}
 	}
 
