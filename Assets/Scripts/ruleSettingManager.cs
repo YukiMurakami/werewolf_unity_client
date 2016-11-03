@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class RuleData{
-	public List<int> roleNum;
-	public int afternoonTime;
-	public int nightTime;
-}
+
 
 public class ruleSettingManager : MonoBehaviour {
+
+	public class RuleData{
+		public List<int> roleNum;
+		public int afternoonTime;
+		public int nightTime;
+	}
+
 	public Dropdown afternoonTimeDropdown;
 	public Dropdown nightTimeDropdown;
 	public void onClick(){
@@ -26,7 +29,7 @@ public class ruleSettingManager : MonoBehaviour {
 		ruleData.afternoonTime = int.Parse(afternoonTimeText);
 		ruleData.nightTime = int.Parse(nightTimeText);
 
-		// emitRuleEvent(ruleData);
+		socketManager.emitRuleEvent(ruleData);
 	}
 
 	// Use this for initialization
