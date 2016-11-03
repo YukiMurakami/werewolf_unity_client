@@ -35,10 +35,15 @@ public class ruleSettingManager : MonoBehaviour {
 	public GameObject roleNode;
 	public GameObject Content;
 	public GameObject obj;
+	public Text roleNameText;
 	public void generateRoleNode(){
 		for(int i = 0;i < (int)roleName.max;i++){
+
+			string name = utility.getRoleInfo((roleName)i)["name"];
+			roleNameText.text = name;
+
 			obj = Instantiate(roleNode) as GameObject;
-			obj.transform.parent = Content.transform;
+			obj.transform.SetParent(Content.transform);
 			obj.transform.localScale = new Vector3(1, 1, 1);
 		}
 	}

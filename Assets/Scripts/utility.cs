@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum roleName{
 	villager,
@@ -22,19 +23,31 @@ public class utility : MonoBehaviour {
 		return clientId;
 	}
 
-	// public static Dictionary<string,string> getRoleInfo(roleName){
-	// 	Dictionary<string,string> infoDic = new Dictionary<string,string>();
-	// 	switch(roleName){
-	// 		case roleName.villager:
-	// 			infoDic.Add("name","村人");
-	// 			break;
+	public static Dictionary<string,string> getRoleInfo(roleName role){
+		Dictionary<string,string> infoDic = new Dictionary<string,string>();
+		switch(role){
+			case roleName.villager:
+				infoDic.Add("name","村人");
+				break;
+			case roleName.werewolf:
+				infoDic.Add("name","人狼");
+				break;
+			case roleName.seer:
+				infoDic.Add("name","予言者");
+				break;
+			case roleName.medium:
+				infoDic.Add("name","霊媒師");
+				break;
+			case roleName.bodyguard:
+				infoDic.Add("name","狩人");
+				break;
+			default:
+				break;
 
-	// 		case roleName.werewolf:
-	// 			infoDic.Add("name","人狼");
-	// 			break;
+		}
 
-	// 	}
-	// }
+		return infoDic;
+	}
 
 	// Use this for initialization
 	void Start () {
