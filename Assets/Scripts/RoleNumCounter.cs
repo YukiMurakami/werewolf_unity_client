@@ -7,13 +7,13 @@ public class RoleNumCounter : MonoBehaviour {
 	public Text roleNum;
 
 	public void onClickPlus(){
-		Debug.Log(roleNum.text);
+		// Debug.Log(roleNum.text);
 		int num = int.Parse(roleNum.text);
 		num++;
 		roleNum.text = num.ToString();
 	}
 	public void onClickMinus(){
-		Debug.Log(roleNum.text);
+		// Debug.Log(roleNum.text);
 		int num = int.Parse(roleNum.text);
 		if(num != 0){
 			num--;		

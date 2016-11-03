@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class RuleData{
 	public List<int> roleNum;
@@ -9,15 +10,23 @@ public class RuleData{
 }
 
 public class ruleSettingManager : MonoBehaviour {
+	public Dropdown afternoonTimeDropdown;
+	public Dropdown nightTimeDropdown;
 	public void onClick(){
 		RuleData ruleData = new RuleData();
+		// 配役設定
 		ruleData.roleNum = new List<int>();
-		ruleData.role.Add(2);
-		ruleData.role.Add(1);
-		ruleData.afternoonTime = 5;
-		ruleData.nightTime = 3;
+		ruleData.roleNum.Add(2);
+		ruleData.roleNum.Add(1);
 
-		emitRuleEvent(ruleData);
+		string afternoonTimeText = afternoonTimeDropdown.captionText.text;
+		string nightTimeText = nightTimeDropdown.captionText.text;
+
+		// 各種時間設定
+		ruleData.afternoonTime = int.Parse(afternoonTimeText);
+		ruleData.nightTime = int.Parse(nightTimeText);
+
+		// emitRuleEvent(ruleData);
 	}
 
 	// Use this for initialization
