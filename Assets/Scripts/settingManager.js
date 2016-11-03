@@ -37,7 +37,7 @@ function Start () {
 	if(PlayerPrefs.HasKey("clientId")){
 		clientIdText.text = PlayerPrefs.GetString("clientId");
 	}else{
-		clientIdText.text = utility.createClientId();
+		clientIdText.text = utility.createClientId();// 初回起動時にclientIdをcreate
 		PlayerPrefs.SetString("clientId",clientIdText.text);
 	}
 

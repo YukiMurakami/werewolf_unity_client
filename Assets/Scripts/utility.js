@@ -1,5 +1,4 @@
 ﻿#pragma strict
-import UnityEngine;
 static function createClientId(){
 
 	var c = "abcdefghijklmnopqrstrvwxyz0123456789";
