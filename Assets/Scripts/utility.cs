@@ -6,7 +6,8 @@ public enum roleName{
 	werewolf,
 	seer,
 	medium,
-	bodyguard
+	bodyguard,
+	max
 }
 
 public class utility : MonoBehaviour {

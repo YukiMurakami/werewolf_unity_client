@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 538f77a0cfec53941a77e4809f965a65
-timeCreated: 1478155392
+timeCreated: 1478173375
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - afternoonTimeDropdown: {instanceID: 0}
+  - nightTimeDropdown: {instanceID: 0}
+  - roleNode: {instanceID: 0}
+  - Content: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

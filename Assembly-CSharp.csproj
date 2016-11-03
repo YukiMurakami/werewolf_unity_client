@@ -56,29 +56,29 @@
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
- <Reference Include="WebSocket4Net">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/WebSocket4Net.dll</HintPath>
- </Reference>
- <Reference Include="SuperSocket.ClientEngine.Proxy">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Proxy.dll</HintPath>
- </Reference>
- <Reference Include="SuperSocket.ClientEngine.Common">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Common.dll</HintPath>
- </Reference>
- <Reference Include="SuperSocket.ClientEngine.Protocol">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Protocol.dll</HintPath>
- </Reference>
- <Reference Include="SocketIO">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SocketIO.dll</HintPath>
- </Reference>
- <Reference Include="SuperSocket.ClientEngine.Core">
- <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Core.dll</HintPath>
- </Reference>
  <Reference Include="LitJson">
  <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/LitJson.dll</HintPath>
  </Reference>
  <Reference Include="SimpleJson">
  <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SimpleJson.dll</HintPath>
+ </Reference>
+ <Reference Include="SocketIO">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SocketIO.dll</HintPath>
+ </Reference>
+ <Reference Include="SuperSocket.ClientEngine.Common">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Common.dll</HintPath>
+ </Reference>
+ <Reference Include="SuperSocket.ClientEngine.Core">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="SuperSocket.ClientEngine.Protocol">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Protocol.dll</HintPath>
+ </Reference>
+ <Reference Include="SuperSocket.ClientEngine.Proxy">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/SuperSocket.ClientEngine.Proxy.dll</HintPath>
+ </Reference>
+ <Reference Include="WebSocket4Net">
+ <HintPath>C:/Users/Kazuaki/Documents/werewolf_unity_client/Assets/Plugins/WebSocket4Net.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

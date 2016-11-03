@@ -97,7 +97,7 @@ public class socketManager : MonoBehaviour {
 	}
 
 	public static void emit(string eventName,string message) {
-		socket.Emit (eventName, message);
+		// socket.Emit (eventName, message);
 	}
 
 
