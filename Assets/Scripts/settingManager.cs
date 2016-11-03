@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class settingManager : MonoBehaviour {
@@ -11,10 +12,20 @@ public class settingManager : MonoBehaviour {
 	public Text clientIdText;
 
 	public void onClick(){
+
+		// 保存
 		PlayerPrefs.SetString("name",nameField.text);
 		PlayerPrefs.SetString("roomId",roomIdField.text);
 		PlayerPrefs.SetString("ipAddress",ipAddressField.text);
 		PlayerPrefs.SetString("port",portField.text);
+
+		//Dictionaryを作る
+		// Dictionary<string,string> userInfo = new Dictionary<string,string>();
+		// userInfo.Add("name",nameField.text);
+		// userInfo.Add("clientId",clientIdText.text);
+		// userInfo.Add("roomId",roomIdField.text);
+
+		//socketManager.connect(ipaddress,port)
 	}
 
 	// Use this for initialization
