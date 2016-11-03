@@ -15,16 +15,16 @@ public class EmitDictionaryFormat {
 	public List<Dictionary<string,string > > args;
 }
 
-public class SampleSocketIO : MonoBehaviour {
+public class socketManager : MonoBehaviour {
 
 	public static SocketIOClient.Client socket;
 
 	public static void connect(string ipaddress,string port) {
-		/*
+
 		Debug.Log("attempt to connect:" + ipaddress + ":" + port);
 		socket = new SocketIOClient.Client("http://" + ipaddress + ":" + port);
-		Opening.sendDebugLog ("attempt to connect:" + ipaddress + ":" + port);
-
+		//Opening.sendDebugLog ("attempt to connect:" + ipaddress + ":" + port);
+		/*
 		socket.On("connect-result",(data) => {
 			Debug.Log("json:" + data.MessageText);
 			Opening.sendDebugLog("json:" + data.MessageText);
@@ -59,7 +59,12 @@ public class SampleSocketIO : MonoBehaviour {
 		});
 		*/
 		socket.Connect();
-		//Opening.sendDebugLog ("socket connect done");
+	}
+
+	public static void emitJoinRoomEvent(Dictionary<string,string> userInfo) {
+		string val = LitJson.JsonMapper.ToJson (userInfo).ToString ();
+		Debug.Log ("emit joinroom:" + val);
+		emit("joinRoom",val);
 	}
 
 	public static void emit(string eventName,string message) {
@@ -99,7 +104,8 @@ public class SampleSocketIO : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		Debug.Log ("emitjoin");
+		emitJoinRoomEvent(new Dictionary<string,string>{{"name","12"},{"clientId","1234567890abcdef"}});
 	}
 	
 	// Update is called once per frame
