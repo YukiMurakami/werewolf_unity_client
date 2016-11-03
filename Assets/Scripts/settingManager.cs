@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class settingManager : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class settingManager : MonoBehaviour {
 	public InputField ipAddressField;
 	public InputField portField;
 	public Text clientIdText;
+
+	static bool isFinishConnect;
 
 	public void onClick(){
 
@@ -20,16 +23,17 @@ public class settingManager : MonoBehaviour {
 		PlayerPrefs.SetString("port",portField.text);
 
 		//Dictionaryを作る
-		// Dictionary<string,string> userInfo = new Dictionary<string,string>();
-		// userInfo.Add("name",nameField.text);
-		// userInfo.Add("clientId",clientIdText.text);
-		// userInfo.Add("roomId",roomIdField.text);
+		 Dictionary<string,string> userInfo = new Dictionary<string,string>();
+		 userInfo.Add("name",nameField.text);
+		 userInfo.Add("clientId",clientIdText.text);
+		 userInfo.Add("roomId",roomIdField.text);
 
-		//socketManager.connect(ipaddress,port)
+		socketManager.connect (ipAddressField.text, portField.text);
 	}
 
 	// Use this for initialization
 	void Start () {
+		isFinishConnect = false;
 		// getField
 		if(PlayerPrefs.HasKey("name")){
 			nameField.text = PlayerPrefs.GetString("name");
@@ -54,9 +58,15 @@ public class settingManager : MonoBehaviour {
 			PlayerPrefs.SetString("clientId",clientIdText.text);
 		}
 	}
+
+	public static void didConnect() {
+		isFinishConnect = true;
+	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (isFinishConnect) {
+			SceneManager.LoadScene ("ruleSetting");
+		}
 	}
 }

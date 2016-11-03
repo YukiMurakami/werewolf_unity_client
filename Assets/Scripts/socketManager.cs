@@ -11,7 +11,7 @@ public class EmitListFormat {
 }
 
 public class EmitListListFormat {
-	putlic string name;
+	public string name;
 	public List<List<string>> args;
 }
 
@@ -39,6 +39,10 @@ public class socketManager : MonoBehaviour {
 				userListStrings += userList[i] + ",";
 			}
 			Debug.Log("UserList:" + userListStrings);
+		});
+
+		socket.On ("connectionEstablished", (data) => {
+			settingManager.didConnect();
 		});
 
 		/*
@@ -76,6 +80,8 @@ public class socketManager : MonoBehaviour {
 		});
 		*/
 		socket.Connect();
+
+		settingManager.didConnect();
 	}
 
 	public static void emitJoinRoomEvent(Dictionary<string,string> userInfo) {
