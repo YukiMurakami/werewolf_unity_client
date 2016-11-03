@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class RuleData{
-	public List<int> role;
+	public List<int> roleNum;
 	public int afternoonTime;
 	public int nightTime;
 }
@@ -11,13 +11,13 @@ public class RuleData{
 public class ruleSettingManager : MonoBehaviour {
 	public void onClick(){
 		RuleData ruleData = new RuleData();
-		ruleData.role = new List<int>();
-		ruleData.role.Add(5);
-
+		ruleData.roleNum = new List<int>();
+		ruleData.role.Add(2);
+		ruleData.role.Add(1);
 		ruleData.afternoonTime = 5;
 		ruleData.nightTime = 3;
 
-		// joinRoomEvent(ruleData);
+		emitRuleEvent(ruleData);
 	}
 
 	// Use this for initialization
