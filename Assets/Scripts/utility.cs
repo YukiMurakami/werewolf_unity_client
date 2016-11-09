@@ -8,11 +8,12 @@ public enum roleName{
 	seer,
 	medium,
 	bodyguard,
+	max,
 	minion,
 	freemason,
 	fox,
 	cat,
-	max
+
 }
 
 public class utility : MonoBehaviour {
@@ -29,24 +30,30 @@ public class utility : MonoBehaviour {
 
 	public static Dictionary<string,string> getRoleInfo(roleName role){
 		Dictionary<string,string> infoDic = new Dictionary<string,string>();
-		switch(role){
-			case roleName.villager:
-				infoDic.Add("name","村人");
-				break;
-			case roleName.werewolf:
-				infoDic.Add("name","人狼");
-				break;
-			case roleName.seer:
-				infoDic.Add("name","予言者");
-				break;
-			case roleName.medium:
-				infoDic.Add("name","霊媒師");
-				break;
-			case roleName.bodyguard:
-				infoDic.Add("name","狩人");
-				break;
-			default:
-				break;
+
+		switch (role) {
+		case roleName.villager:
+			infoDic.Add ("name", "村人");
+			infoDic.Add ("imageFilename", "card0_k");
+			break;
+		case roleName.werewolf:
+			infoDic.Add ("name", "人狼");
+			infoDic.Add ("imageFilename", "card1_k");
+			break;
+		case roleName.seer:
+			infoDic.Add ("name", "予言者");
+			infoDic.Add ("imageFilename", "card2_k");
+			break;
+		case roleName.medium:
+			infoDic.Add ("name", "霊媒師");
+			infoDic.Add ("imageFilename", "card3_k");
+			break;
+		case roleName.bodyguard:
+			infoDic.Add ("name", "狩人");
+			infoDic.Add ("imageFilename", "card4_k");
+			break;
+		default:
+			break;
 
 		}
 

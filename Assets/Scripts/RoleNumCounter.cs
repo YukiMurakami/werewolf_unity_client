@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class RoleNumCounter : MonoBehaviour {
 
 	public Text roleNum;
+	public Text roleNameText;
+	public Image roleImage;
 
 	public void onClickPlus(){
 		// Debug.Log(roleNum.text);

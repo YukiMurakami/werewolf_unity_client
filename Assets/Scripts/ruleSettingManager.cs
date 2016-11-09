@@ -42,23 +42,26 @@ public class ruleSettingManager : MonoBehaviour {
 	}
 
 	// ruleNode instantiate
-	public GameObject roleNode;
+	public GameObject roleNodePrefab;
 	public GameObject Content;
-	public GameObject obj;
-	public Text roleNameText;
+
 
 	public List<GameObject> nodeList;
 	public void generateRoleNode(){
 		for(int i = 0;i < (int)roleName.max;i++){
 
+			GameObject roleNode = Instantiate (roleNodePrefab) as GameObject;
+
 			string name = utility.getRoleInfo((roleName)i)["name"];
-			roleNameText.text = name;
+			string imageFilename = "images/" + utility.getRoleInfo ((roleName)i) ["imageFilename"];
 
-			obj = Instantiate(roleNode) as GameObject;
-			obj.transform.SetParent(Content.transform);
-			obj.transform.localScale = new Vector3(1, 1, 1);
+			roleNode.GetComponent<RoleNumCounter> ().roleNameText.text = name;
+			Sprite sprite = Resources.Load<Sprite> (imageFilename);
+			roleNode.GetComponent<RoleNumCounter> ().roleImage.sprite = sprite;
+			roleNode.transform.SetParent (Content.transform);
+			roleNode.transform.localScale = new Vector3(1, 1, 1);
 
-			nodeList.Add(obj);
+			nodeList.Add(roleNode);
 		}
 	}
 
