@@ -7,6 +7,7 @@ public class chatManager : MonoBehaviour {
 
 	public InputField messageInputField;
 	public GameObject scrollViewContent;
+	public GameObject scrollView;
 	public GameObject chatCellNodePrefab;
 
 	List<GameObject> cells;
@@ -23,17 +24,30 @@ public class chatManager : MonoBehaviour {
 
 		float sumHeight = 0;
 		float margin = 20;
-		for (int i = 0; i < cells.Count; i++) {
-			cells [i].transform.localScale = new Vector3 (1, 1, 1);
-			cells [i].GetComponent<RectTransform>().localPosition = new Vector3 (0,-150-sumHeight,0);
+		for (int i = cells.Count-1; i >= 0; i--) {
 			float cellHeight = cells [i].GetComponent<RectTransform> ().sizeDelta [1];
 			sumHeight += cellHeight + margin;
 		}
 
 		if (800 < sumHeight) {
-			scrollViewContent.GetComponent<RectTransform> ().sizeDelta = new Vector2 (0, sumHeight);
+			scrollViewContent.GetComponent<RectTransform> ().sizeDelta = new Vector2 (0, sumHeight + 40);
 		} else {
 			scrollViewContent.GetComponent<RectTransform> ().sizeDelta = new Vector2 (0, 800);
+		}
+
+		float adjustHeight = sumHeight - 840;
+
+		sumHeight = 0;
+		for (int i = cells.Count-1; i >= 0; i--) {
+			cells [i].transform.localScale = new Vector3 (1, 1, 1);
+			cells [i].GetComponent<RectTransform>().localPosition = new Vector3 (350,sumHeight - 740 - adjustHeight,0);
+			float cellHeight = cells [i].GetComponent<RectTransform> ().sizeDelta [1];
+			sumHeight += cellHeight + margin;
+		}
+
+		float autoScrollHeight = scrollViewContent.GetComponent<RectTransform> ().sizeDelta [1] - scrollView.GetComponent<RectTransform> ().sizeDelta [1];
+		if (autoScrollHeight > 0) {
+			scrollViewContent.GetComponent<RectTransform> ().localPosition = new Vector3 (0, autoScrollHeight, 0);
 		}
 	}
 
