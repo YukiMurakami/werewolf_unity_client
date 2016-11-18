@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\ruleSettingManager.cs" />
      <Compile Include="Assets\Scripts\settingManager.cs" />
      <Compile Include="Assets\Scripts\socketManager.cs" />
+     <Compile Include="Assets\Scripts\topManager.cs" />
      <Compile Include="Assets\Scripts\utility.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
