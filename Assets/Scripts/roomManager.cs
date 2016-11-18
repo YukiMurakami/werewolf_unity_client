@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class topManager : MonoBehaviour {
 
+public class roomManager : MonoBehaviour {
 
-	public void onClicktoEnterRoom(){
-		SceneManager.LoadScene ("room");
+	public void onClicktoSetting(){ // 設定画面へ
+		SceneManager.LoadScene ("ruleSetting");
 	}
-	public void onClicktoSetting(){
-		SceneManager.LoadScene ("setting");
+	public void onClickStart(){ // ゲーム開始画面:startGame
+	}
+	public void onClicktoExit(){// ゲーム退出:exitRoom
 	}
 	// Use this for initialization
 	void Start () {
