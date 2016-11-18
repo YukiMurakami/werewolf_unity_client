@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\RoleNumCounter.cs" />
+     <Compile Include="Assets\Scripts\roleCheckManager.cs" />
      <Compile Include="Assets\Scripts\roomManager.cs" />
      <Compile Include="Assets\Scripts\ruleSettingManager.cs" />
      <Compile Include="Assets\Scripts\settingManager.cs" />
