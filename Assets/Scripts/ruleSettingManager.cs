@@ -59,7 +59,7 @@ public class ruleSettingManager : MonoBehaviour {
 			Sprite sprite = Resources.Load<Sprite> (imageFilename);
 			roleNode.GetComponent<RoleNumCounter> ().roleImage.sprite = sprite;
 			roleNode.transform.SetParent (Content.transform);
-			roleNode.transform.localScale = new Vector3(1, 1, 1);
+			roleNode.transform.localScale = new Vector3(1.8f, 1.8f, 1);
 
 			nodeList.Add(roleNode);
 		}
