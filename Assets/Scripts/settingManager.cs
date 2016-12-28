@@ -12,8 +12,6 @@ public class settingManager : MonoBehaviour {
 	public InputField portField;
 	public Text clientIdText;
 
-	static bool isFinishConnect;
-
 	public void onClick(){
 
 		// 保存
@@ -33,7 +31,7 @@ public class settingManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		isFinishConnect = false;
+
 		// getField
 		if(PlayerPrefs.HasKey("name")){
 			nameField.text = PlayerPrefs.GetString("name");
@@ -59,14 +57,10 @@ public class settingManager : MonoBehaviour {
 		}
 	}
 
-	public static void didConnect() {
-		isFinishConnect = true;
-	}
+
 	
 	// Update is called once per frame
 	void Update () {
-		if (isFinishConnect) {
-			SceneManager.LoadScene ("ruleSetting");
-		}
+
 	}
 }

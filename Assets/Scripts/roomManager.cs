@@ -10,6 +10,11 @@ public class roomManager : MonoBehaviour {
 	public GameObject memberNodePrefab;
 	public GameObject Content;
 
+	//ソケットで受信したメッセージが格納される
+	public static Dictionary<string,List<string>> receivedMessages;
+
+
+
 	public void onClicktoSetting(){ // 設定画面へ
 		SceneManager.LoadScene ("ruleSetting");
 	}
@@ -45,6 +50,26 @@ public class roomManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//格納されたメッセージを1フレームごとに順番に処理していく
+		foreach (KeyValuePair<string,List<string>> pair in receivedMessages) {
+			didReceiveMessage (pair.Key, pair.Value);
+			receivedMessages.Remove (pair.Key);
+			break;
+		}
+	}
+
+	//アプリ終了時に呼び出されて、ソケットを切断する（すべてのシーンで必要）
+	private void OnApplicationQuit (){
+		socketManager.Instance.disconnect ();
+	}
+
+	//メッセージを受信するとこのメソッドで処理される
+	void didReceiveMessage(string key,List<string> messages) {
+		string[] messageArray = messages.ToArray ();
+		Debug.Log ("key:" + key + " mes:" + string.Join(",",messageArray) + " @opening");
+
+		if (key == "hogehoge") {
+
+		}
 	}
 }

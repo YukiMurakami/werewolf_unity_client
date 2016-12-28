@@ -44,6 +44,7 @@ public class socketManager : MonoBehaviour {
 
 	public void OnConnectionEstablished(SocketIOEvent e) {
 		Debug.Log ("connection established");
+		topManager.receivedMessages.Add ("connectionEstablished", new List<string>{"aaaaaa"});
 	}
 	/*
 		socket.On ("joinRoom", (data) => {
