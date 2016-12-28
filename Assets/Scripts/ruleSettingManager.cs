@@ -38,7 +38,7 @@ public class ruleSettingManager : MonoBehaviour {
 		ruleData.afternoonTime = int.Parse(afternoonTimeText);
 		ruleData.nightTime = int.Parse(nightTimeText);
 
-		socketManager.emitRuleEvent(ruleData);
+		//socketManager.emitRuleEvent(ruleData);
 	}
 
 	// ruleNode instantiate

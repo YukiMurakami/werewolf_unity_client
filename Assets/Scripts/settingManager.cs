@@ -28,7 +28,7 @@ public class settingManager : MonoBehaviour {
 		 userInfo.Add("clientId",clientIdText.text);
 		 userInfo.Add("roomId",roomIdField.text);
 
-		socketManager.connect (ipAddressField.text, portField.text);
+		SceneManager.LoadScene ("top");
 	}
 
 	// Use this for initialization

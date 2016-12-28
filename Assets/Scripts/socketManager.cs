@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using SocketIOClient;
-using LitJson;
 using UnityEngine.SceneManagement;
+
+using SocketIO;
 
 public class EmitListFormat {
 	public string name;
@@ -22,14 +22,30 @@ public class EmitDictionaryFormat {
 
 public class socketManager : MonoBehaviour {
 
-	public static SocketIOClient.Client socket;
+	public static socketManager Instance = new socketManager();
 
-	public static void connect(string ipaddress,string port) {
+	public SocketIOComponent socket;
 
-		Debug.Log("attempt to connect:" + ipaddress + ":" + port);
-		socket = new SocketIOClient.Client("http://" + ipaddress + ":" + port);
-		//Opening.sendDebugLog ("attempt to connect:" + ipaddress + ":" + port);
+	public void connect(string ipaddress,string port) {
+		if (socket == null) {
+			//ws://52.199.129.220:8080/socket.io/?EIO=4&transport=websocket
+			string url = "ws://" + ipaddress + ":" + port + "/socket.io/?EIO=4&transport=websocket";
+			PlayerPrefs.SetString ("urlForSocketIO",url);
 
+			GameObject prefab = Resources.Load ("Prefabs/SocketIO") as GameObject;
+			Debug.Log (prefab);
+			GameObject go = Instantiate (prefab);
+			socket = go.GetComponent<SocketIOComponent> ();
+			Debug.Log ("attempt to connect:" + ipaddress + ":" + port);
+
+			socket.On ("connectionEstablished", OnConnectionEstablished);
+		}
+	}
+
+	public void OnConnectionEstablished(SocketIOEvent e) {
+		Debug.Log ("connection established");
+	}
+	/*
 		socket.On ("joinRoom", (data) => {
 			Debug.Log("receive joinRoom:" + data.MessageText);
 			EmitListListFormat format = JsonMapper.ToObject<EmitListListFormat>(data.MessageText);
@@ -45,6 +61,7 @@ public class socketManager : MonoBehaviour {
 			settingManager.didConnect();
 		});
 
+*/
 		/*
 		socket.On("connect-result",(data) => {
 			Debug.Log("json:" + data.MessageText);
@@ -79,11 +96,11 @@ public class socketManager : MonoBehaviour {
 			Main.setSquares(format.args[0]["squares"]);
 		});
 		*/
-		socket.Connect();
+		
 
-		settingManager.didConnect();
-	}
-
+		//settingManager.didConnect();
+//	}
+/*
 	public static void emitJoinRoomEvent(Dictionary<string,string> userInfo) {
 		string val = LitJson.JsonMapper.ToJson (userInfo).ToString ();
 		Debug.Log ("emit joinroom:" + val);
@@ -99,7 +116,10 @@ public class socketManager : MonoBehaviour {
 	public static void emit(string eventName,string message) {
 		// socket.Emit (eventName, message);
 	}
-
+*/
+	public void disconnect() {
+		socket.Close ();
+	}
 
 	/*
 	void OnGUI() {
@@ -135,9 +155,17 @@ public class socketManager : MonoBehaviour {
 	void Start () {
 
 	}
+
+	public void EmitMessage(string message)
+	{
+		JSONObject jsonObject = new JSONObject(JSONObject.Type.OBJECT);
+		jsonObject.AddField("message", message);
+
+		socket.Emit("message", jsonObject);
+	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }
