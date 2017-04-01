@@ -41,11 +41,20 @@ public class roomManager : MonoBehaviour {
 		}
 	}
 
-
+	void Awake() {
+		receivedMessages = new Dictionary<string,List<string>> ();
+	}
 
 	// Use this for initialization
 	void Start () {
 		generateMemberNode();
+
+		//Dictionaryを作る
+		Dictionary<string,string> userInfo = new Dictionary<string,string>();
+		userInfo.Add("userId",PlayerPrefs.GetString("clientId"));
+		userInfo.Add("name",PlayerPrefs.GetString("name"));
+
+		socketManager.Instance.EmitDictionaryData (userInfo, "joinRoom");
 	}
 	
 	// Update is called once per frame
@@ -59,17 +68,13 @@ public class roomManager : MonoBehaviour {
 	}
 
 	//アプリ終了時に呼び出されて、ソケットを切断する（すべてのシーンで必要）
-	private void OnApplicationQuit (){
+	void OnApplicationQuit (){
 		socketManager.Instance.disconnect ();
 	}
 
 	//メッセージを受信するとこのメソッドで処理される
 	void didReceiveMessage(string key,List<string> messages) {
 		string[] messageArray = messages.ToArray ();
-		Debug.Log ("key:" + key + " mes:" + string.Join(",",messageArray) + " @opening");
-
-		if (key == "hogehoge") {
-
-		}
+		Debug.Log ("receive message key:" + key + " mes:" + string.Join(",",messageArray) + " @roomManager");
 	}
 }

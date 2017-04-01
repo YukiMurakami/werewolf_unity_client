@@ -20,12 +20,6 @@ public class settingManager : MonoBehaviour {
 		PlayerPrefs.SetString("ipAddress",ipAddressField.text);
 		PlayerPrefs.SetString("port",portField.text);
 
-		//Dictionaryを作る
-		 Dictionary<string,string> userInfo = new Dictionary<string,string>();
-		 userInfo.Add("name",nameField.text);
-		 userInfo.Add("clientId",clientIdText.text);
-		 userInfo.Add("roomId",roomIdField.text);
-
 		SceneManager.LoadScene ("top");
 	}
 

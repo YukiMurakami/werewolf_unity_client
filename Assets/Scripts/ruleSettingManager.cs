@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 
 public class ruleSettingManager : MonoBehaviour {
@@ -39,6 +39,7 @@ public class ruleSettingManager : MonoBehaviour {
 		ruleData.nightTime = int.Parse(nightTimeText);
 
 		//socketManager.emitRuleEvent(ruleData);
+		SceneManager.LoadScene ("room");
 	}
 
 	// ruleNode instantiate

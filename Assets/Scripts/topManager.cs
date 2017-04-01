@@ -17,9 +17,14 @@ public class topManager : MonoBehaviour {
 	public void onClicktoSetting(){
 		SceneManager.LoadScene ("setting");
 	}
+
+
+	void Awake() {
+		receivedMessages = new Dictionary<string,List<string>> ();
+	}
 	// Use this for initialization
 	void Start () {
-		initReceivedMessages ();
+
 	}
 	
 	// Update is called once per frame
@@ -32,11 +37,6 @@ public class topManager : MonoBehaviour {
 		}
 	}
 
-	void initReceivedMessages() {
-		roomManager.receivedMessages = new Dictionary<string,List<string>> ();
-		receivedMessages = new Dictionary<string,List<string>> ();
-	}
-
 	//アプリ終了時に呼び出されて、ソケットを切断する（すべてのシーンで必要）
 	private void OnApplicationQuit (){
 		socketManager.Instance.disconnect ();
@@ -45,7 +45,7 @@ public class topManager : MonoBehaviour {
 	//メッセージを受信するとこのメソッドで処理される
 	void didReceiveMessage(string key,List<string> messages) {
 		string[] messageArray = messages.ToArray ();
-		Debug.Log ("key:" + key + " mes:" + string.Join(",",messageArray) + " @opening");
+		Debug.Log ("received message key:" + key + " mes:" + string.Join(",",messageArray) + " @topManager");
 
 		if (key == "connectionEstablished") {
 			//success connection
