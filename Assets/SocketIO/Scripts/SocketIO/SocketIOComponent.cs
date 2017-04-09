@@ -70,13 +70,13 @@ namespace SocketIO
 		private Decoder decoder;
 		private Parser parser;
 
-		private Dictionary<string, List<Action<SocketIOEvent>>> handlers;
+		public Dictionary<string, List<Action<SocketIOEvent>>> handlers;
 		private List<Ack> ackList;
 
 		private int packetId;
 
 		private object eventQueueLock;
-		private Queue<SocketIOEvent> eventQueue;
+		public Queue<SocketIOEvent> eventQueue;
 
 		private object ackQueueLock;
 		private Queue<Packet> ackQueue;
@@ -128,6 +128,7 @@ namespace SocketIO
 		{
 			lock(eventQueueLock){ 
 				while(eventQueue.Count > 0){
+					//Debug.Log (eventQueue.Peek ().ToString ());
 					EmitEvent(eventQueue.Dequeue());
 				}
 			}
@@ -381,6 +382,7 @@ namespace SocketIO
 			}
 
 			if (packet.socketPacketType == SocketPacketType.EVENT) {
+				//Debug.Log (packet.json.ToString ());
 				SocketIOEvent e = parser.Parse(packet.json);
 				lock(eventQueueLock){ eventQueue.Enqueue(e); }
 			}

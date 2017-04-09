@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using SocketIO;
+using System;
+
 
 public class roomManager : MonoBehaviour {
 
 	public GameObject memberNodePrefab;
 	public GameObject Content;
-
-	//ソケットで受信したメッセージが格納される
-	public static Dictionary<string,List<string>> receivedMessages;
-
-
 
 	public void onClicktoSetting(){ // 設定画面へ
 		SceneManager.LoadScene ("ruleSetting");
@@ -22,8 +20,6 @@ public class roomManager : MonoBehaviour {
 	}
 	public void onClicktoExit(){// ゲーム退出:exitRoom
 	}
-		// memberNode instantiate
-
 
 	public List<GameObject> nodeList;
 	public void generateMemberNode(){
@@ -41,28 +37,23 @@ public class roomManager : MonoBehaviour {
 		}
 	}
 
-	void Awake() {
-		receivedMessages = new Dictionary<string,List<string>> ();
-	}
-
 	// Use this for initialization
 	void Start () {
 		generateMemberNode();
 
-		//Dictionaryを作る
-		Dictionary<string,string> userInfo = new Dictionary<string,string>();
-		userInfo.Add("userId",PlayerPrefs.GetString("clientId"));
-		userInfo.Add("name",PlayerPrefs.GetString("name"));
-
-		socketManager.Instance.EmitDictionaryData (userInfo, "joinRoom");
+		//send joinRoom
+		socketManager.Instance.EmitDictionaryData (new Dictionary<string,string> () {
+			{ "userId",PlayerPrefs.GetString ("clientId") },
+			{ "name",PlayerPrefs.GetString ("name") },
+		}, "joinRoom");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//格納されたメッセージを1フレームごとに順番に処理していく
-		foreach (KeyValuePair<string,List<string>> pair in receivedMessages) {
+		foreach (KeyValuePair<string,List<string>> pair in socketManager.Instance.receivedMessages) {
+			socketManager.Instance.receivedMessages.Remove (pair.Key);
 			didReceiveMessage (pair.Key, pair.Value);
-			receivedMessages.Remove (pair.Key);
 			break;
 		}
 	}

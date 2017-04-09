@@ -8,9 +8,6 @@ public class topManager : MonoBehaviour {
 
 	public Text title;
 
-	//ソケットで受信したメッセージが格納される
-	public static Dictionary<string,List<string>> receivedMessages;
-
 	public void onClicktoEnterRoom(){
 		socketManager.Instance.connect (PlayerPrefs.GetString("ipAddress"), PlayerPrefs.GetString("port"));
 	}
@@ -18,22 +15,19 @@ public class topManager : MonoBehaviour {
 		SceneManager.LoadScene ("setting");
 	}
 
-
-	void Awake() {
-		receivedMessages = new Dictionary<string,List<string>> ();
-	}
 	// Use this for initialization
 	void Start () {
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//格納されたメッセージを1フレームごとに順番に処理していく
-		foreach (KeyValuePair<string,List<string>> pair in receivedMessages) {
-			didReceiveMessage (pair.Key, pair.Value);
-			receivedMessages.Remove (pair.Key);
-			break;
+		if (socketManager.Instance.receivedMessages != null) {
+			foreach (KeyValuePair<string,List<string>> pair in socketManager.Instance.receivedMessages) {
+				socketManager.Instance.receivedMessages.Remove (pair.Key);
+				didReceiveMessage (pair.Key, pair.Value);
+				break;
+			}
 		}
 	}
 
@@ -48,7 +42,6 @@ public class topManager : MonoBehaviour {
 		Debug.Log ("received message key:" + key + " mes:" + string.Join(",",messageArray) + " @topManager");
 
 		if (key == "connectionEstablished") {
-			//success connection
 			SceneManager.LoadScene ("room");
 		}
 	}
