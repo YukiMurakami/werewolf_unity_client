@@ -128,7 +128,7 @@ namespace SocketIO
 		{
 			lock(eventQueueLock){ 
 				while(eventQueue.Count > 0){
-					//Debug.Log (eventQueue.Peek ().ToString ());
+					//Debug.Log (eventQueue.Peek ().ToString () + " update");
 					EmitEvent(eventQueue.Dequeue());
 				}
 			}
@@ -382,9 +382,11 @@ namespace SocketIO
 			}
 
 			if (packet.socketPacketType == SocketPacketType.EVENT) {
-				//Debug.Log (packet.json.ToString ());
 				SocketIOEvent e = parser.Parse(packet.json);
-				lock(eventQueueLock){ eventQueue.Enqueue(e); }
+				lock(eventQueueLock){ 
+					eventQueue.Enqueue(e);
+				}
+				//Debug.Log ("after enQueue :" + e.ToString ());
 			}
 		}
 

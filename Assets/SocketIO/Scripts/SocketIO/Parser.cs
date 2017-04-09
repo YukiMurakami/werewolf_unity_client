@@ -34,10 +34,12 @@ namespace SocketIO
 		public SocketIOEvent Parse(JSONObject json)
 		{
 			if (json.Count < 1 || json.Count > 2) {
+				Debug.Log ("Invalid number of parameters received: " + json.Count);
 				throw new SocketIOException("Invalid number of parameters received: " + json.Count);
 			}
 
 			if (json[0].type != JSONObject.Type.STRING) {
+				Debug.Log ("Invalid parameter type. " + json[0].type + " received while expecting " + JSONObject.Type.STRING);
 				throw new SocketIOException("Invalid parameter type. " + json[0].type + " received while expecting " + JSONObject.Type.STRING);
 			}
 
@@ -45,9 +47,10 @@ namespace SocketIO
 				return new SocketIOEvent(json[0].str);
 			} 
 
-			if (json[1].type == JSONObject.Type.OBJECT || json[1].type == JSONObject.Type.STRING) {
+			if (json[1].type == JSONObject.Type.OBJECT || json[1].type == JSONObject.Type.STRING || json[1].type == JSONObject.Type.ARRAY) {
 				return new SocketIOEvent(json[0].str, json[1]);
 			} else {
+				Debug.Log ("Invalid argument type. " + json[1].type + " received");
 				throw new SocketIOException("Invalid argument type. " + json[1].type + " received");
 			}
 		}

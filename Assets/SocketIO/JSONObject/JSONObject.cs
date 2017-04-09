@@ -988,6 +988,16 @@ public class JSONObject {
 	public static implicit operator bool(JSONObject o) {
 		return o != null;
 	}
+	public List<string> ToList() {
+		if (type == Type.ARRAY) {
+			List<string> result = new List<string> ();
+			for (int i = 0; i < list.Count; i++) {
+				result.Add (list [i].ToString());
+			}
+			return result;
+		}
+		return null;
+	}
 #if POOLING
 	static bool pool = true;
 	public static void ClearPool() {

@@ -31,37 +31,35 @@ public class socketManager : MonoBehaviour {
 				DontDestroyOnLoad (go);
 				mInstance = go.AddComponent<socketManager> ();
 				mInstance.id = Random.Range (0, 1000000);
-				mInstance.receivedMessages = new Dictionary<string,List<string>> ();
+				mInstance.receivedMessages = new Dictionary<string,JSONObject> ();
+
+				GameObject go2 = new GameObject("socketIOComponentManager");
+				DontDestroyOnLoad (go2);
+				mInstance.socket = go2.AddComponent<SocketIOComponent> ();
 			}
 			return mInstance;
 		}
 	}
 
-	public Dictionary<string,List<string>> receivedMessages;
+	public Dictionary<string,JSONObject> receivedMessages;
 	public SocketIOComponent socket;
 	public int id;
 
-
-
-
 	public void connect(string ipaddress,string port) {
-		if (socket == null) {
+		if (!socket.IsConnected) {
 			//ws://52.199.129.220:8080/socket.io/?EIO=4&transport=websocket
 			string url = "ws://" + ipaddress + ":" + port + "/socket.io/?EIO=4&transport=websocket";
 			PlayerPrefs.SetString ("urlForSocketIO",url);
+			socket.autoConnect = true;
+			socket.Connect ();
 
-			GameObject prefab = Resources.Load ("Prefabs/SocketIO") as GameObject;
-			GameObject go = Instantiate (prefab);
-			go.transform.parent = GameObject.Find ("socketManager").transform;
-			socket = go.GetComponent<SocketIOComponent> ();
 			Debug.Log ("attempt to connect:" + ipaddress + ":" + port);
 
 			socket.On ("memberChanged", ((SocketIOEvent e) => {
-				Debug.Log("aaaaa");
+				receivedMessages.Add ("memberChanged",e.data);
 			}));
-
 			socket.On ("connectionEstablished", ((SocketIOEvent e) => {
-				receivedMessages.Add ("connectionEstablished", new List<string>{ "" });
+				receivedMessages.Add ("connectionEstablished", e.data);
 			}));
 		}
 	}
@@ -78,12 +76,11 @@ public class socketManager : MonoBehaviour {
 
 	public void EmitDictionaryData(Dictionary<string,string> data,string eventName)
 	{
-		Debug.Log ("emit " + eventName);
 		JSONObject jsonObject = new JSONObject(JSONObject.Type.OBJECT);
 		foreach (KeyValuePair<string,string> pair in data) {
 			jsonObject.AddField(pair.Key, pair.Value);
 		}
-
+		Debug.Log ("emit " + eventName + jsonObject.ToString());
 		socket.Emit(eventName, jsonObject);
 	}
 

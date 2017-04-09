@@ -23,7 +23,7 @@ public class topManager : MonoBehaviour {
 	void Update () {
 		//格納されたメッセージを1フレームごとに順番に処理していく
 		if (socketManager.Instance.receivedMessages != null) {
-			foreach (KeyValuePair<string,List<string>> pair in socketManager.Instance.receivedMessages) {
+			foreach (KeyValuePair<string,JSONObject> pair in socketManager.Instance.receivedMessages) {
 				socketManager.Instance.receivedMessages.Remove (pair.Key);
 				didReceiveMessage (pair.Key, pair.Value);
 				break;
@@ -31,15 +31,14 @@ public class topManager : MonoBehaviour {
 		}
 	}
 
-	//アプリ終了時に呼び出されて、ソケットを切断する（すべてのシーンで必要）
+	//アプリ終了時に呼び出されて、ソケットを切断する
 	private void OnApplicationQuit (){
 		socketManager.Instance.disconnect ();
 	}
 
 	//メッセージを受信するとこのメソッドで処理される
-	void didReceiveMessage(string key,List<string> messages) {
-		string[] messageArray = messages.ToArray ();
-		Debug.Log ("received message key:" + key + " mes:" + string.Join(",",messageArray) + " @topManager");
+	void didReceiveMessage(string key,JSONObject obj) {
+		Debug.Log ("received message key:" + key + " mes:" + obj.ToString() + " @topManager");
 
 		if (key == "connectionEstablished") {
 			SceneManager.LoadScene ("room");

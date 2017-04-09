@@ -12,6 +12,8 @@ public class roomManager : MonoBehaviour {
 
 	public GameObject memberNodePrefab;
 	public GameObject Content;
+	public List<GameObject> nodeList;
+	List<string> playerNames;
 
 	public void onClicktoSetting(){ // 設定画面へ
 		SceneManager.LoadScene ("ruleSetting");
@@ -21,15 +23,14 @@ public class roomManager : MonoBehaviour {
 	public void onClicktoExit(){// ゲーム退出:exitRoom
 	}
 
-	public List<GameObject> nodeList;
 	public void generateMemberNode(){
-		for(int i = 0;i < 13;i++){
-
+		for (int i = 0; i < nodeList.Count; i++) {
+			Destroy (nodeList [i]);
+		}
+		nodeList.Clear ();
+		for(int i = 0;i < playerNames.Count;i++){
 			GameObject memberNode = Instantiate (memberNodePrefab) as GameObject;
-
-			string name = "test" + i;
-
-			memberNode.transform.FindChild("memberText").gameObject.GetComponent<Text>().text = name;
+			memberNode.transform.FindChild("memberText").gameObject.GetComponent<Text>().text = playerNames [i];
 			memberNode.transform.SetParent (Content.transform);
 			memberNode.transform.localScale = new Vector3(1,1, 1);
 
@@ -39,6 +40,8 @@ public class roomManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		playerNames = new List<string> ();
+		nodeList = new List<GameObject> ();
 		generateMemberNode();
 
 		//send joinRoom
@@ -51,7 +54,7 @@ public class roomManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//格納されたメッセージを1フレームごとに順番に処理していく
-		foreach (KeyValuePair<string,List<string>> pair in socketManager.Instance.receivedMessages) {
+		foreach (KeyValuePair<string,JSONObject> pair in socketManager.Instance.receivedMessages) {
 			socketManager.Instance.receivedMessages.Remove (pair.Key);
 			didReceiveMessage (pair.Key, pair.Value);
 			break;
@@ -64,8 +67,16 @@ public class roomManager : MonoBehaviour {
 	}
 
 	//メッセージを受信するとこのメソッドで処理される
-	void didReceiveMessage(string key,List<string> messages) {
-		string[] messageArray = messages.ToArray ();
-		Debug.Log ("receive message key:" + key + " mes:" + string.Join(",",messageArray) + " @roomManager");
+	void didReceiveMessage(string key,JSONObject obj) {
+		Debug.Log ("received message key:" + key + " mes:" + obj.ToString() + " @roomManager");
+
+		if (key == "memberChanged") {
+			playerNames.Clear ();
+			for (int i = 0; i < obj.list.Count; i++) {
+				Dictionary<string,string> dic = obj.list [i].ToDictionary ();
+				playerNames.Add (dic["name"]);
+			}
+			generateMemberNode ();
+		}
 	}
 }
