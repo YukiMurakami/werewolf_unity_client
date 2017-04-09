@@ -21,6 +21,9 @@ public class roomManager : MonoBehaviour {
 	public void onClickStart(){ // ゲーム開始画面:startGame
 	}
 	public void onClicktoExit(){// ゲーム退出:exitRoom
+		socketManager.Instance.EmitDictionaryData (new Dictionary<string,string>(), "exitRoom");
+		socketManager.Instance.disconnect ();
+		SceneManager.LoadScene ("top");
 	}
 
 	public void generateMemberNode(){
