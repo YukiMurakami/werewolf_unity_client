@@ -7,53 +7,47 @@ using UnityEngine.SceneManagement;
 
 public class ruleSettingManager : MonoBehaviour {
 
-	public class RuleData{
-		public List<int> roleNum;
-		public int afternoonTime;
-		public int nightTime;
-	}
-
 	public Dropdown afternoonTimeDropdown;
 	public Dropdown nightTimeDropdown;
+	// ruleNode instantiate
+	public GameObject roleNodePrefab;
+	public GameObject Content;
+	public List<GameObject> nodeList;
+
 
 	public void onClick(){
-		RuleData ruleData = new RuleData();
 		// 配役設定
-		ruleData.roleNum = new List<int>();
+		Dictionary<string,string> roleSet = new Dictionary<string,string> ();
 
 		for(int i = 0; i < nodeList.Count; i++){
 			GameObject obj = nodeList[i].transform.FindChild("roleNum").gameObject;
 			string str = obj.GetComponent<Text>().text;
-			int num = int.Parse(str);
-			ruleData.roleNum.Add(num);
-			Debug.Log(num);
+			roleSet.Add (utility.getRoleInfo ((roleName)i) ["nameeng"], str);
+			//Debug.Log(num);
 		}
-		// ruleData.roleNum.Add(2);
-		// ruleData.roleNum.Add(1);
 
-		string afternoonTimeText = afternoonTimeDropdown.captionText.text;
-		string nightTimeText = nightTimeDropdown.captionText.text;
+		JSONObject roleSetObj = new JSONObject (roleSet);
 
-		// 各種時間設定
-		ruleData.afternoonTime = int.Parse(afternoonTimeText);
-		ruleData.nightTime = int.Parse(nightTimeText);
+		JSONObject jsonObject = new JSONObject(JSONObject.Type.OBJECT);
+		jsonObject.AddField ("dayTime", int.Parse (afternoonTimeDropdown.captionText.text) * 60);
+		jsonObject.AddField ("nightTime", int.Parse (nightTimeDropdown.captionText.text) * 60);
+		jsonObject.AddField ("nightTimeDecreasesBy", 60);
+		jsonObject.AddField ("firstNightSee", "choice");
+		jsonObject.AddField ("roleLackable", false);
+		jsonObject.AddField ("roleSet", roleSetObj);
 
-		//socketManager.emitRuleEvent(ruleData);
+
+		socketManager.Instance.EmitData (jsonObject, "changeRule");
 		SceneManager.LoadScene ("room");
 	}
 
-	// ruleNode instantiate
-	public GameObject roleNodePrefab;
-	public GameObject Content;
 
-
-	public List<GameObject> nodeList;
 	public void generateRoleNode(){
 		for(int i = 0;i < (int)roleName.max;i++){
 
 			GameObject roleNode = Instantiate (roleNodePrefab) as GameObject;
 
-			string name = utility.getRoleInfo((roleName)i)["name"];
+			string name = utility.getRoleInfo((roleName)i)["namejp"];
 			string imageFilename = "images/" + utility.getRoleInfo ((roleName)i) ["imageFilename"];
 
 			roleNode.GetComponent<RoleNumCounter> ().roleNameText.text = name;
@@ -73,6 +67,23 @@ public class ruleSettingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//格納されたメッセージを1フレームごとに順番に処理していく
+		foreach (KeyValuePair<string,JSONObject> pair in socketManager.Instance.receivedMessages) {
+			socketManager.Instance.receivedMessages.Remove (pair.Key);
+			didReceiveMessage (pair.Key, pair.Value);
+			break;
+		}
+	}
+
+	//アプリ終了時に呼び出されて、ソケットを切断する（すべてのシーンで必要）
+	void OnApplicationQuit (){
+		socketManager.Instance.disconnect ();
+	}
+
+	//メッセージを受信するとこのメソッドで処理される
+	void didReceiveMessage(string key,JSONObject obj) {
+		Debug.Log ("received message key:" + key + " mes:" + obj.ToString() + " @Manager");
+
+
 	}
 }

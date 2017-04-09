@@ -80,8 +80,12 @@ public class socketManager : MonoBehaviour {
 		foreach (KeyValuePair<string,string> pair in data) {
 			jsonObject.AddField(pair.Key, pair.Value);
 		}
-		Debug.Log ("emit " + eventName + jsonObject.ToString());
-		socket.Emit(eventName, jsonObject);
+		EmitData (jsonObject, eventName);
+	}
+
+	public void EmitData(JSONObject json,string eventName) {
+		Debug.Log ("emit " + eventName + json.ToString());
+		socket.Emit(eventName, json);
 	}
 
 	// Update is called once per frame

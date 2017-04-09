@@ -33,23 +33,28 @@ public class utility : MonoBehaviour {
 
 		switch (role) {
 		case roleName.villager:
-			infoDic.Add ("name", "村人");
+			infoDic.Add ("namejp", "村人");
+			infoDic.Add ("nameeng", "Villager");
 			infoDic.Add ("imageFilename", "card0_k");
 			break;
 		case roleName.werewolf:
-			infoDic.Add ("name", "人狼");
+			infoDic.Add ("namejp", "人狼");
+			infoDic.Add ("nameeng", "Werewolf");
 			infoDic.Add ("imageFilename", "card1_k");
 			break;
 		case roleName.seer:
-			infoDic.Add ("name", "予言者");
+			infoDic.Add ("namejp", "予言者");
+			infoDic.Add ("nameeng", "Seer");
 			infoDic.Add ("imageFilename", "card2_k");
 			break;
 		case roleName.medium:
-			infoDic.Add ("name", "霊媒師");
+			infoDic.Add ("namejp", "霊媒師");
+			infoDic.Add ("nameeng", "Medium");
 			infoDic.Add ("imageFilename", "card3_k");
 			break;
 		case roleName.bodyguard:
-			infoDic.Add ("name", "狩人");
+			infoDic.Add ("namejp", "狩人");
+			infoDic.Add ("nameeng", "Guard");
 			infoDic.Add ("imageFilename", "card4_k");
 			break;
 		default:
