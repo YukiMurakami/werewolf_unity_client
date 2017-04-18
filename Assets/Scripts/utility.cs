@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum roleName{
+public enum Role{
 	villager,
 	werewolf,
 	seer,
 	medium,
 	bodyguard,
+	madman,
 	max,
-	minion,
 	freemason,
 	fox,
 	cat,
@@ -28,34 +28,39 @@ public class utility : MonoBehaviour {
 		return clientId;
 	}
 
-	public static Dictionary<string,string> getRoleInfo(roleName role){
+	public static Dictionary<string,string> getRoleInfo(Role role){
 		Dictionary<string,string> infoDic = new Dictionary<string,string>();
 
 		switch (role) {
-		case roleName.villager:
+		case Role.villager:
 			infoDic.Add ("namejp", "村人");
 			infoDic.Add ("nameeng", "Villager");
 			infoDic.Add ("imageFilename", "card0_k");
 			break;
-		case roleName.werewolf:
+		case Role.werewolf:
 			infoDic.Add ("namejp", "人狼");
 			infoDic.Add ("nameeng", "Werewolf");
 			infoDic.Add ("imageFilename", "card1_k");
 			break;
-		case roleName.seer:
+		case Role.seer:
 			infoDic.Add ("namejp", "予言者");
 			infoDic.Add ("nameeng", "Seer");
 			infoDic.Add ("imageFilename", "card2_k");
 			break;
-		case roleName.medium:
+		case Role.medium:
 			infoDic.Add ("namejp", "霊媒師");
 			infoDic.Add ("nameeng", "Medium");
 			infoDic.Add ("imageFilename", "card3_k");
 			break;
-		case roleName.bodyguard:
+		case Role.bodyguard:
 			infoDic.Add ("namejp", "狩人");
 			infoDic.Add ("nameeng", "Guard");
 			infoDic.Add ("imageFilename", "card4_k");
+			break;
+		case Role.madman:
+			infoDic.Add ("namejp", "狂人");
+			infoDic.Add ("nameeng", "Madman");
+			infoDic.Add ("imageFilename", "card5_k");
 			break;
 		default:
 			break;
@@ -63,6 +68,15 @@ public class utility : MonoBehaviour {
 		}
 
 		return infoDic;
+	}
+
+	public static Role getRoleFromEnglish(string roleNameEng) {
+		for (Role role = 0; role < Role.max; role++) {
+			if (getRoleInfo (role) ["nameeng"] == roleNameEng) {
+				return role;
+			}
+		}
+		return Role.max;
 	}
 
 	// Use this for initialization

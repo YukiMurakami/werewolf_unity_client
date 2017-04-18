@@ -61,6 +61,9 @@ public class socketManager : MonoBehaviour {
 			socket.On ("connectionEstablished", ((SocketIOEvent e) => {
 				receivedMessages.Add ("connectionEstablished", e.data);
 			}));
+			socket.On ("roleAck", ((SocketIOEvent e) => {
+				receivedMessages.Add ("roleAck", e.data);
+			}));
 		}
 	}
 

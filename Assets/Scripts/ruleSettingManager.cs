@@ -22,7 +22,7 @@ public class ruleSettingManager : MonoBehaviour {
 		for(int i = 0; i < nodeList.Count; i++){
 			GameObject obj = nodeList[i].transform.FindChild("roleNum").gameObject;
 			string str = obj.GetComponent<Text>().text;
-			roleSet.Add (utility.getRoleInfo ((roleName)i) ["nameeng"], str);
+			roleSet.Add (utility.getRoleInfo ((Role)i) ["nameeng"], str);
 			//Debug.Log(num);
 		}
 
@@ -43,12 +43,12 @@ public class ruleSettingManager : MonoBehaviour {
 
 
 	public void generateRoleNode(){
-		for(int i = 0;i < (int)roleName.max;i++){
+		for(int i = 0;i < (int)Role.max;i++){
 
 			GameObject roleNode = Instantiate (roleNodePrefab) as GameObject;
 
-			string name = utility.getRoleInfo((roleName)i)["namejp"];
-			string imageFilename = "images/" + utility.getRoleInfo ((roleName)i) ["imageFilename"];
+			string name = utility.getRoleInfo((Role)i)["namejp"];
+			string imageFilename = "images/" + utility.getRoleInfo ((Role)i) ["imageFilename"];
 
 			roleNode.GetComponent<RoleNumCounter> ().roleNameText.text = name;
 			Sprite sprite = Resources.Load<Sprite> (imageFilename);

@@ -19,6 +19,7 @@ public class roomManager : MonoBehaviour {
 		SceneManager.LoadScene ("ruleSetting");
 	}
 	public void onClickStart(){ // ゲーム開始画面:startGame
+		socketManager.Instance.EmitDictionaryData (new Dictionary<string,string>(), "startGame");
 	}
 	public void onClicktoExit(){// ゲーム退出:exitRoom
 		socketManager.Instance.EmitDictionaryData (new Dictionary<string,string>(), "exitRoom");
@@ -80,6 +81,12 @@ public class roomManager : MonoBehaviour {
 				playerNames.Add (dic["name"]);
 			}
 			generateMemberNode ();
+		}
+		if (key == "roleAck") {
+			string roleNameEng = obj.RemoveQuotation ();
+			Role role = utility.getRoleFromEnglish (roleNameEng);
+			PlayerPrefs.SetInt ("role", (int)role);
+			SceneManager.LoadScene ("roleCheck");
 		}
 	}
 }

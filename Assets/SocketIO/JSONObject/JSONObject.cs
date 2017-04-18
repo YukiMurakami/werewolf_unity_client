@@ -998,6 +998,20 @@ public class JSONObject {
 		}
 		return null;
 	}
+	public string RemoveQuotation() {
+		if (type == Type.STRING) {
+			string result = Print ();
+			if (result.Length >= 2) {
+				if (result.Substring (0, 1) == "\"" && result.Substring (result.Length - 1, 1) == "\"") {
+					result = result.Substring (1, result.Length - 2);
+					return result;
+				}
+			}
+			return result;
+		}
+		return null;
+	}
+
 #if POOLING
 	static bool pool = true;
 	public static void ClearPool() {
