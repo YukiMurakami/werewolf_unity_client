@@ -64,7 +64,7 @@ public class chatManager : MonoBehaviour {
 		Role role = (Role)PlayerPrefs.GetInt ("role");
 		cells = new List<GameObject> ();
 
-		addMessage ("GM", "０日目の夜になりました。***********", chatCellNodeManager.BalloonDirection.Left);
+		addMessage ("GM", "０日目の夜になりました。", chatCellNodeManager.BalloonDirection.Left);
 		addMessage ("GM", utility.getRoleInfo(role)["firstNightMessage"],chatCellNodeManager.BalloonDirection.Left);
 		addMessage ("Player 2", "よろしく。", chatCellNodeManager.BalloonDirection.Left);
 		addMessage ("Player 1", "こちらこそ。", chatCellNodeManager.BalloonDirection.Right);
