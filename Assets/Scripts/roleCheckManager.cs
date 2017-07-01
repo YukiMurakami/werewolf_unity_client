@@ -10,7 +10,7 @@ public class roleCheckManager : MonoBehaviour {
 	public Text roleExplainText;
 
 	public void onClicktoChat(){ //チャットシーンへ
-		//SceneManager.LoadScene ("chat");
+		// SceneManager.LoadScene ("chat");
 	}
 	// Use this for initialization
 	void Start () {

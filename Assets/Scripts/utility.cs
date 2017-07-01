@@ -49,12 +49,12 @@ public class utility : MonoBehaviour {
 			infoDic.Add ("firstNightMessage","ここは「人狼専用チャット」です。仲間と相談できます。なお、夜時間終了までに代表者がアクションボタンから、襲撃先を決定してください。アクションが行われなかった場合はランダムに1名決定します。");
 			break;
 		case Role.seer:
-			infoDic.Add ("namejp", "予言者");
+			infoDic.Add ("namejp", "占い師");
 			infoDic.Add ("nameeng", "Seer");
 			infoDic.Add ("token","占");
 			infoDic.Add ("imageFilename", "card2_k");
-			infoDic.Add ("roleExplainText","あなたは「予言者」です。予言者は毎晩疑っている人物を１人指定してその人物が人狼かそうでないかを知ることができます。");
-			infoDic.Add ("firstNightMessage","あなたは「予言者」です。考察を書き込みつつ、夜時間中に占い作業を完了してください。");
+			infoDic.Add ("roleExplainText","あなたは「占い師」です。占い師は毎晩疑っている人物を１人指定してその人物が人狼かそうでないかを知ることができます。");
+			infoDic.Add ("firstNightMessage","あなたは「占い師」です。考察を書き込みつつ、夜時間中に占い作業を完了してください。");
 			break;
 		case Role.medium:
 			infoDic.Add ("namejp", "霊媒師");

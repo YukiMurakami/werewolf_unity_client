@@ -10,6 +10,7 @@ public class chatManager : MonoBehaviour {
 	public GameObject scrollView;
 	public GameObject chatCellNodePrefab;
 
+
 	List<GameObject> cells;
 
 	void addMessage(string name,string mes,chatCellNodeManager.BalloonDirection direction) {
@@ -53,17 +54,18 @@ public class chatManager : MonoBehaviour {
 
 	public void sendMessage() {
 		if (messageInputField.text.Length > 0) {
-			addMessage ("myname", messageInputField.text, chatCellNodeManager.BalloonDirection.Right);
+			addMessage (PlayerPrefs.GetString("name"), messageInputField.text, chatCellNodeManager.BalloonDirection.Right);
 			messageInputField.text = "";
 		}
 	}
 
 	// Use this for initialization
 	void Start () {
-
+		Role role = (Role)PlayerPrefs.GetInt ("role");
 		cells = new List<GameObject> ();
 
-		addMessage ("GM", "０日目の夜になりました。", chatCellNodeManager.BalloonDirection.Left);
+		addMessage ("GM", "０日目の夜になりました。***********", chatCellNodeManager.BalloonDirection.Left);
+		addMessage ("GM", utility.getRoleInfo(role)["firstNightMessage"],chatCellNodeManager.BalloonDirection.Left);
 		addMessage ("Player 2", "よろしく。", chatCellNodeManager.BalloonDirection.Left);
 		addMessage ("Player 1", "こちらこそ。", chatCellNodeManager.BalloonDirection.Right);
 	}
