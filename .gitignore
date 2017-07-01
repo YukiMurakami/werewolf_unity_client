@@ -4,5 +4,6 @@ Temp
 *.unityproj
 *.sln
 *.userprefs
+*.DS_Store
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj

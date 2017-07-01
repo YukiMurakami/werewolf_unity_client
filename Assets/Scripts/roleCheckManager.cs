@@ -18,7 +18,7 @@ public class roleCheckManager : MonoBehaviour {
 		Debug.Log (role);
 		string imageFilename = "images/" + utility.getRoleInfo (role) ["imageFilename"];
 		roleImage.sprite = Resources.Load<Sprite> (imageFilename);
-		//roleExplainText.text = utility.getRoleInfo(role)[""]
+		roleExplainText.text = utility.getRoleInfo(role)["roleExplainText"];
 	}
 	
 	// Update is called once per frame
