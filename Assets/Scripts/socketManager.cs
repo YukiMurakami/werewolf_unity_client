@@ -48,7 +48,7 @@ public class socketManager : MonoBehaviour {
 	public void connect(string ipaddress,string port) {
 		if (!socket.IsConnected) {
 			//ws://52.199.129.220:8080/socket.io/?EIO=4&transport=websocket
-			string url = "ws://" + ipaddress + ":" + port + "/socket.io/?EIO=4&transport=websocket";
+			string url = "http://" + ipaddress + ":" + port + "/socket.io/?EIO=4&transport=websocket";
 			PlayerPrefs.SetString ("urlForSocketIO",url);
 			socket.autoConnect = true;
 			socket.Connect ();
